@@ -1,26 +1,84 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import Gameboard from "./Gameboard";
+import Spinner from "./Spinner";
+import Axios from "axios";
+import { v4 } from "uuid";
+import { fetchCards } from "./actions";
+import { connect } from "react-redux";
 
-function App() {
+function App({ cards, fetchCards, match1, match2 }) {
+  const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const url = "https://picsum.photos/200";
+  const pairsCount = 10;
+
+  const fetchImages = async () => {
+    let images = [];
+    while (images.length < pairsCount) {
+      const res = await Axios.get(url);
+      if (res.request.responseURL) {
+        images.push(res.request.responseURL);
+      }
+    }
+    setImages(images);
+  };
+
+  const generateMemoryCards = () => {
+    if (images.length === pairsCount) {
+      const pairedImages = [];
+
+      images.forEach((image) => {
+        let id = v4();
+        pairedImages.push({
+          url: image,
+          id: id,
+          opened: false,
+          matched: false,
+          uniqueId: v4(),
+        });
+        pairedImages.push({
+          url: image,
+          id: id,
+          opened: false,
+          matched: false,
+          uniqueId: v4(),
+        });
+      });
+      setLoading(false);
+      // setPairs(pairedImages);
+      fetchCards(pairedImages);
+    }
+  };
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
+
+  useEffect(() => {
+    generateMemoryCards();
+    //eslint-disable-next-line
+  }, [images]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container">
+      <h1>Memory pair game</h1>
+      {loading && <Spinner />}
+      {!loading && <Gameboard />}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    cards: state.cards,
+    match1: state.match1,
+    match2: state.match2,
+  };
+};
+
+const mapDispatchToProps = {
+  fetchCards,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
