@@ -67,7 +67,7 @@ function Gameboard({
     <React.Fragment>
       <h1>
         Memory pair game.{" "}
-        {counter === 20 ? <span>You won!</span> : <span>Score: {counter}</span>}
+        {counter === 16 ? <span>You won!</span> : <span>Score: {counter}</span>}
       </h1>
       <div className="container board d-flex flex-wrap">
         {shuffledCards.map((card, index) => (

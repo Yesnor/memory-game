@@ -11,7 +11,7 @@ function App({ cards, fetchCards, match1, match2 }) {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const url = "https://picsum.photos/200";
-  const pairsCount = 10;
+  const pairsCount = 8;
 
   const fetchImages = async () => {
     let images = [];
