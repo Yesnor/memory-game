@@ -1,10 +1,8 @@
 .App {
   text-align: center;
-  padding-top: 3rem;
+  padding-top: 1rem;
 }
-.App h1 {
-  margin-bottom: 2em;
-}
+
 .board {
   width: 850px;
   height: 850px;
@@ -38,6 +36,7 @@
 
 .card-flip-back {
   transform: rotateY(180deg);
+  background: #b2bcaa;
 }
 
 .matched {

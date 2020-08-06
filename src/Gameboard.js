@@ -46,7 +46,6 @@ function Gameboard({
           rememberMatch2(false, false);
           rememberMatch1(false, false);
         }, 1000);
-        setCounter(counter + 2);
       }
       if (match2.id === match1.id) {
         let matchedCards = shuffledCards.filter((el) => el.id === match1.id);
@@ -57,18 +56,25 @@ function Gameboard({
           rememberMatch2(false, false);
           rememberMatch1(false, false);
         }, 1000);
+        setCounter(counter + 1);
       }
       rememberMatch2(false, false);
       rememberMatch1(false, false);
     }
     //eslint-disable-next-line
-  }, [match1, match2]);
+  }, [match1, match2, counter]);
   return (
-    <div className="container board d-flex flex-wrap">
-      {shuffledCards.map((card, index) => (
-        <Card key={index} card={card} index={index} />
-      ))}
-    </div>
+    <React.Fragment>
+      <h1>
+        Memory pair game.{" "}
+        {counter === 20 ? <span>You won!</span> : <span>Score: {counter}</span>}
+      </h1>
+      <div className="container board d-flex flex-wrap">
+        {shuffledCards.map((card, index) => (
+          <Card key={index} card={card} index={index} />
+        ))}
+      </div>
+    </React.Fragment>
   );
 }
 

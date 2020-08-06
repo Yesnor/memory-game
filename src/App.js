@@ -62,7 +62,6 @@ function App({ cards, fetchCards, match1, match2 }) {
 
   return (
     <div className="App container">
-      <h1>Memory pair game</h1>
       {loading && <Spinner />}
       {!loading && <Gameboard />}
     </div>
