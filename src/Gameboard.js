@@ -11,6 +11,7 @@ function Gameboard({
   match2,
   rememberMatch2,
   rememberMatch1,
+  replay,
 }) {
   const [counter, setCounter] = useState(0);
   const shuffle = () => {
@@ -68,6 +69,13 @@ function Gameboard({
       <h1>
         Memory pair game.{" "}
         {counter === 16 ? <span>You won!</span> : <span>Score: {counter}</span>}
+        <button
+          className="btn btn-primary ml-3"
+          onClick={replay}
+          style={{ fontSize: "1.3rem" }}
+        >
+          Replay
+        </button>
       </h1>
       <div className="container board d-flex flex-wrap">
         {shuffledCards.map((card, index) => (

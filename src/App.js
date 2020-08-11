@@ -46,7 +46,6 @@ function App({ cards, fetchCards, match1, match2 }) {
         });
       });
       setLoading(false);
-      // setPairs(pairedImages);
       fetchCards(pairedImages);
     }
   };
@@ -60,10 +59,13 @@ function App({ cards, fetchCards, match1, match2 }) {
     //eslint-disable-next-line
   }, [images]);
 
+  const replay = () => {
+    window.location.reload();
+  };
   return (
     <div className="App container">
       {loading && <Spinner />}
-      {!loading && <Gameboard />}
+      {!loading && <Gameboard replay={replay} />}
     </div>
   );
 }
